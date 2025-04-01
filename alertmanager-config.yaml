@@ -1,0 +1,15 @@
+alertmanager:
+  config:
+    global:
+      resolve_timeout: 5m
+    route:
+      receiver: demo-webhook
+      group_wait: 5s
+      group_interval: 10s
+      repeat_interval: 1h
+    receivers:
+      - name: "null"
+      - name: demo-webhook
+        webhook_configs:
+          - url: http://10.10.73.108:8085/webhook  # Use the IP address of the machine running the Flask server
+            send_resolved: true
